@@ -109,18 +109,6 @@ jobs:
           fi
           ninja -C build_$BIT download
 
-      - name: Diagnostic toolchain (gcc)
-        continue-on-error: true
-        run: |
-          echo "=== src_packages/gcc ==="
-          ls -la src_packages/gcc/ 2>&1 | head -10
-          echo "=== gcc-stamp ==="
-          ls -la build_$BIT/toolchain/gcc-prefix/src/gcc-stamp/ 2>&1 | head -30 || true
-          echo "=== gcc-download retry ==="
-          ninja -C build_$BIT gcc-download 2>&1 | tail -15 || true
-          echo "=== gcc-configure retry ==="
-          ninja -C build_$BIT gcc-configure 2>&1 | tail -25 || true
-
       - name: Building mpv
         id: build_mpv_step
         env:
